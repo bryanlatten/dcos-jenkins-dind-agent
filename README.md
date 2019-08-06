@@ -16,15 +16,20 @@ For full documentation on how to use this Docker image, please refer to
 Try it out locally by running the following command:
 
 ```bash
-docker run --privileged mesosphere/jenkins-dind:0.5.0-alpine \
+docker run --privileged bryanlatten/jenkins-dind:0.7.0-alpine \
   wrapper.sh "java -version && docker run hello-world"
 ```
+
+- Use `DOCKER_ENGINE_LOGS` to control visibility of Docker's detailed daemon output
+
 
 ### Jenkins
 You'll need to configure the Mesos plugin on your Jenkins master to use this
 image. You'll probably also want to give it a special slave label, so that you
 don't unnecessarily run builds using the dind image. A relevant snippet of the
 Mesos plugin within the Jenkins master's `config.xml` follows:
+
+
 
 ```xml
 <org.jenkinsci.plugins.mesos.MesosSlaveInfo>

@@ -2,7 +2,12 @@
 set -e
 
 echo "==> Launching the Docker daemon..."
-dind dockerd --storage-driver=overlay $DOCKER_EXTRA_OPTS 2>1 &
+
+if [ "$DOCKER_ENGINE_LOGS" = true ]; then
+  dind dockerd --storage-driver=overlay $DOCKER_EXTRA_OPTS &
+else
+  dind dockerd --storage-driver=overlay $DOCKER_EXTRA_OPTS 2>1 &
+fi
 
 while(! docker info > /dev/null 2>&1); do
     echo "==> Waiting for the Docker daemon to come online..."
